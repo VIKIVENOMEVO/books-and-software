@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jfp-runtime"
+version = "0.8.0"
+description = "JFP v13 runtime engine and CLI"
+requires-python = ">=3.10"
+authors = [
+    {name = "VIKIVENOMEVO", email = "venom.evo@protonmail.com"},
+]
+license = {text = "MIT"}
+keywords = ["jfp", "protocol", "deterministic", "ai-agents", "runtime"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries",
+]
+
+[project.urls]
+Repository = "https://github.com/VIKIVENOMEVO/books-and-software"
+Documentation = "https://github.com/VIKIVENOMEVO/books-and-software/tree/main/docs"
+
+[project.scripts]
+jfp = "jfp_runtime.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["jfp_runtime*"]
+
+[tool.setuptools.package-data]
+jfp_runtime = [
+    "templates/**/*",
+    "schemas/**/*",
+]
