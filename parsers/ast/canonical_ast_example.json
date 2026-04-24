@@ -1,0 +1,218 @@
+{
+  "version": "13.0.0",
+  "type": "BUILD_SPEC",
+  "meta": {
+    "timestamp": "2026-04-24T10:00:00Z",
+    "author": "JFP Example",
+    "title": "Example Build Specification",
+    "description": "This is the canonical AST format that all parsers must produce"
+  },
+  "sections": {
+    "META": [
+      {
+        "key": "version",
+        "value": "13.0.0"
+      },
+      {
+        "key": "type",
+        "value": "BUILD_SPEC"
+      },
+      {
+        "key": "timestamp",
+        "value": "2026-04-24T10:00:00Z"
+      }
+    ],
+    "BUILD_GRAPH": [
+      {
+        "task_id": "task_1",
+        "name": "Clone repository",
+        "type": "initial"
+      },
+      {
+        "task_id": "task_2",
+        "name": "Install dependencies",
+        "type": "build"
+      },
+      {
+        "task_id": "task_3",
+        "name": "Run tests",
+        "type": "test"
+      },
+      {
+        "task_id": "task_4",
+        "name": "Build artifacts",
+        "type": "build"
+      },
+      {
+        "task_id": "task_5",
+        "name": "Deploy to staging",
+        "type": "deploy"
+      }
+    ],
+    "OUTPUT_MAP": [
+      {
+        "output_id": "output_1",
+        "name": "Built binary artifact",
+        "format": "elf64",
+        "location": "./dist/app"
+      },
+      {
+        "output_id": "output_2",
+        "name": "Deployment verification log",
+        "format": "text",
+        "location": "./logs/deployment.log"
+      },
+      {
+        "output_id": "output_3",
+        "name": "Test coverage report",
+        "format": "json",
+        "location": "./coverage/report.json"
+      }
+    ],
+    "CONSTRAINTS": [
+      {
+        "constraint_id": "constraint_1",
+        "rule": "Must not deploy if tests fail",
+        "severity": "critical",
+        "triggers": ["task_3"]
+      },
+      {
+        "constraint_id": "constraint_2",
+        "rule": "Repository must be clean before clone",
+        "severity": "critical",
+        "triggers": ["task_1"]
+      },
+      {
+        "constraint_id": "constraint_3",
+        "rule": "No build artifacts from previous runs",
+        "severity": "high",
+        "triggers": ["task_1"]
+      }
+    ],
+    "ACCEPTANCE": [
+      {
+        "acceptance_id": "acceptance_1",
+        "criteria": "All tests pass with >80% coverage",
+        "measurement": "test_pass_rate >= 0.80 AND coverage >= 0.80",
+        "task_ref": "task_3"
+      },
+      {
+        "acceptance_id": "acceptance_2",
+        "criteria": "Binary executes without errors",
+        "measurement": "exit_code == 0",
+        "task_ref": "task_4"
+      },
+      {
+        "acceptance_id": "acceptance_3",
+        "criteria": "Staging environment updates successfully",
+        "measurement": "deployment_status == 'success'",
+        "task_ref": "task_5"
+      }
+    ]
+  },
+  "tasks": [
+    {
+      "id": "task_1",
+      "name": "Clone repository",
+      "type": "initial",
+      "dependencies": [],
+      "execution_order": 1
+    },
+    {
+      "id": "task_2",
+      "name": "Install dependencies",
+      "type": "build",
+      "dependencies": ["task_1"],
+      "execution_order": 2
+    },
+    {
+      "id": "task_3",
+      "name": "Run tests",
+      "type": "test",
+      "dependencies": ["task_2"],
+      "execution_order": 3
+    },
+    {
+      "id": "task_4",
+      "name": "Build artifacts",
+      "type": "build",
+      "dependencies": ["task_3"],
+      "execution_order": 4
+    },
+    {
+      "id": "task_5",
+      "name": "Deploy to staging",
+      "type": "deploy",
+      "dependencies": ["task_4"],
+      "execution_order": 5
+    }
+  ],
+  "dependencies": [
+    {
+      "from": "task_1",
+      "to": "task_2",
+      "type": "blocking"
+    },
+    {
+      "from": "task_2",
+      "to": "task_3",
+      "type": "blocking"
+    },
+    {
+      "from": "task_3",
+      "to": "task_4",
+      "type": "blocking"
+    },
+    {
+      "from": "task_4",
+      "to": "task_5",
+      "type": "blocking"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "constraint_1",
+      "rule": "Must not deploy if tests fail",
+      "severity": "critical",
+      "type": "gate"
+    },
+    {
+      "id": "constraint_2",
+      "rule": "Repository must be clean before clone",
+      "severity": "critical",
+      "type": "precondition"
+    },
+    {
+      "id": "constraint_3",
+      "rule": "No build artifacts from previous runs",
+      "severity": "high",
+      "type": "precondition"
+    }
+  ],
+  "proof_chain": [
+    {
+      "event_id": "event_1",
+      "timestamp": "2026-04-24T10:00:01Z",
+      "event_type": "task_started",
+      "task_id": "task_1",
+      "details": "Repository clone initiated"
+    },
+    {
+      "event_id": "event_2",
+      "timestamp": "2026-04-24T10:00:05Z",
+      "event_type": "task_completed",
+      "task_id": "task_1",
+      "details": "Repository cloned successfully"
+    },
+    {
+      "event_id": "event_3",
+      "timestamp": "2026-04-24T10:00:10Z",
+      "event_type": "constraint_checked",
+      "constraint_id": "constraint_2",
+      "status": "passed"
+    }
+  ],
+  "execution_status": "pending",
+  "validation_status": "valid",
+  "errors": []
+}

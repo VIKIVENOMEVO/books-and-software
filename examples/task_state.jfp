@@ -1,0 +1,39 @@
+[META]
+version=5.0
+type=BUILD_SPEC
+timestamp=2026-04-24
+author=JFP Example
+title=Simple Build Task
+
+[BUILD_GRAPH]
+task_1=Clone repository
+task_2=Install dependencies
+task_3=Run tests
+task_4=Build artifacts
+task_5=Deploy to staging
+
+[DEPENDENCIES]
+task_1=initial
+task_2=requires(task_1)
+task_3=requires(task_2)
+task_4=requires(task_3)
+task_5=requires(task_4)
+
+[EXECUTION_ORDER]
+order=sequential
+parallel=false
+
+[CONSTRAINTS]
+constraint_1=Must not deploy if tests fail
+constraint_2=Repository must be clean before clone
+constraint_3=No build artifacts from previous runs
+
+[OUTPUT_MAP]
+output_1=Built binary artifact
+output_2=Deployment verification log
+output_3=Test coverage report
+
+[ACCEPTANCE]
+acceptance_1=All tests pass with >80% coverage
+acceptance_2=Binary executes without errors
+acceptance_3=Staging environment updates successfully

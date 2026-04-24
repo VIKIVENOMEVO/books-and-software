@@ -1,0 +1,47 @@
+[META]
+version=13.0.0
+type=PATCH_SPEC
+timestamp=2026-04-24
+author=JFP Example
+title=Security Patch Application
+
+[BUILD_GRAPH]
+task_1=Backup current system state
+task_2=Apply security patch to authentication module
+task_3=Verify cryptographic integrity
+task_4=Run security tests
+task_5=Monitor for anomalies during rollout
+
+[DEPENDENCIES]
+task_1=initial
+task_2=requires(task_1)
+task_3=requires(task_2)
+task_4=requires(task_3)
+task_5=requires(task_4)
+
+[CONSTRAINTS]
+constraint_1=Rollback available at all times
+constraint_2=No user-facing service interruption
+constraint_3=Security scanning must complete before task_5
+constraint_4=Baseline authentication latency <50ms
+
+[OUTPUT_MAP]
+output_1=Security patch successfully applied
+output_2=All authentication tests passing
+output_3=Cryptographic verification successful
+output_4=Monitoring logs with no anomalies
+
+[ACCEPTANCE]
+proof_1=Backup verified at task_1 completion
+proof_2=Patch hash matches official signature
+proof_3=All security tests return green
+proof_4=Latency baseline maintained
+proof_5=Rollout monitoring complete with no incidents
+
+[AUDIT_TRAIL]
+event_1=2026-04-24T10:00:00Z backup_initiated
+event_2=2026-04-24T10:05:00Z patch_applied
+event_3=2026-04-24T10:10:00Z verification_passed
+event_4=2026-04-24T10:15:00Z security_tests_passed
+event_5=2026-04-24T10:30:00Z monitoring_complete
+status=SUCCESS

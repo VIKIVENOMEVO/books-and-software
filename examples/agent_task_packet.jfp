@@ -1,0 +1,64 @@
+[META]
+version=13.0.0
+type=AGENT_TASK_PACKET
+timestamp=2026-04-24
+author=JFP Example
+agent_framework=Claude
+
+[TASK_DEFINITION]
+task_id=feature-implementation-123
+title=Implement user authentication module
+description=Create OAuth2 authentication system for web application
+
+[CONTEXT]
+required_knowledge=OAuth2, Python, Flask, PostgreSQL
+project_state=Initial phase
+deadline=2026-05-01
+priority=high
+
+[BUILD_GRAPH]
+phase_1=Research OAuth2 best practices
+phase_2=Design authentication flow
+phase_3=Implement OAuth2 provider integration
+phase_4=Create user session management
+phase_5=Write comprehensive tests
+phase_6=Deploy to staging environment
+
+[CONSTRAINTS]
+constraint_1=Must use industry-standard OAuth2 implementation
+constraint_2=Password data never stored in plaintext
+constraint_3=Session tokens expire after 24 hours
+constraint_4=All endpoints must be HTTPS only
+constraint_5=Code must pass security scanning
+constraint_6=Test coverage minimum 85%
+
+[DECISION_GATES]
+gate_1=Security review required before phase_3
+gate_2=Performance testing required before phase_6
+gate_3=Manual QA sign-off required before deployment
+
+[EXPECTED_OUTPUT]
+output_1=OAuth2 integration module (Python)
+output_2=Session management system
+output_3=Authentication API endpoints
+output_4=User management dashboard
+output_5=Comprehensive test suite
+output_6=Security audit report
+
+[ACCEPTANCE_CRITERIA]
+criteria_1=All OAuth2 flows tested and working
+criteria_2=Session management robust against attacks
+criteria_3=API response time <100ms per request
+criteria_4=Zero critical security vulnerabilities
+criteria_5=Test coverage >85%
+criteria_6=Documentation complete
+
+[KNOWLEDGE_BASE]
+ref_1=https://tools.ietf.org/html/rfc6749 (OAuth2 RFC)
+ref_2=https://owasp.org/www-project-web-security-testing-guide/ (OWASP)
+ref_3=Internal authentication standards document
+
+[ROLLBACK_PLAN]
+rollback_1=If OAuth provider integration fails, use JWT tokens
+rollback_2=If performance unacceptable, implement caching layer
+rollback_3=If critical vulnerability found, pause deployment
